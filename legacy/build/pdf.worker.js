@@ -165,7 +165,7 @@ var WorkerMessageHandler = /*#__PURE__*/function () {
       var WorkerTasks = [];
       var verbosity = (0, _util.getVerbosityLevel)();
       var apiVersion = docParams.apiVersion;
-      var workerVersion = '2.13.216';
+      var workerVersion = '2.13.220';
 
       if (apiVersion !== workerVersion) {
         throw new Error("The API version \"".concat(apiVersion, "\" does not match ") + "the Worker version \"".concat(workerVersion, "\"."));
@@ -30075,6 +30075,12 @@ var _image = __w_pdfjs_require__(205);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -30082,6 +30088,14 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -32350,6 +32364,8 @@ var PartialEvaluator = /*#__PURE__*/function () {
           combineTextItems = _ref8$combineTextItem === void 0 ? false : _ref8$combineTextItem,
           _ref8$includeMarkedCo = _ref8.includeMarkedContent,
           includeMarkedContent = _ref8$includeMarkedCo === void 0 ? false : _ref8$includeMarkedCo,
+          _ref8$includeGlyphInf = _ref8.includeGlyphInfo,
+          includeGlyphInfo = _ref8$includeGlyphInf === void 0 ? true : _ref8$includeGlyphInf,
           sink = _ref8.sink,
           _ref8$seenStyles = _ref8.seenStyles,
           seenStyles = _ref8$seenStyles === void 0 ? new Set() : _ref8$seenStyles,
@@ -32377,7 +32393,8 @@ var PartialEvaluator = /*#__PURE__*/function () {
         negativeSpaceMax: -Infinity,
         transform: null,
         fontName: null,
-        hasEOL: false
+        hasEOL: false,
+        glyphInfo: []
       };
       var TRACKING_SPACE_FACTOR = 0.1;
       var NEGATIVE_SPACE_FACTOR = -0.2;
@@ -32480,6 +32497,7 @@ var PartialEvaluator = /*#__PURE__*/function () {
         return {
           str: bidiResult.str,
           dir: bidiResult.dir,
+          glyphInfo: _toConsumableArray(textChunk.glyphInfo),
           width: Math.abs(textChunk.totalWidth),
           height: Math.abs(textChunk.totalHeight),
           transform: textChunk.transform,
@@ -32688,6 +32706,7 @@ var PartialEvaluator = /*#__PURE__*/function () {
 
         var glyphs = font.charsToGlyphs(chars);
         var scale = textState.fontMatrix[0] * textState.fontSize;
+        var currentTransform = getCurrentTextTransform();
 
         for (var i = 0, ii = glyphs.length; i < ii; i++) {
           var glyph = glyphs[i];
@@ -32742,14 +32761,25 @@ var PartialEvaluator = /*#__PURE__*/function () {
             textChunk.prevTransform = getCurrentTextTransform();
           }
 
+          var character = void 0;
+
           if (glyph.isWhitespace) {
             textChunk.str.push(" ");
+            character = " ";
           } else {
             var glyphUnicode = glyph.unicode;
             glyphUnicode = NormalizedUnicodes[glyphUnicode] || glyphUnicode;
             glyphUnicode = (0, _unicode.reverseIfRtl)(glyphUnicode);
             textChunk.str.push(glyphUnicode);
+            character = glyphUnicode;
           }
+
+          textChunk.glyphInfo.push({
+            character: character,
+            height: currentTransform[3],
+            transform: currentTransform,
+            width: scaledDim
+          });
 
           if (_charSpacing) {
             if (!font.vertical) {
@@ -32782,6 +32812,14 @@ var PartialEvaluator = /*#__PURE__*/function () {
         if (textOrientation * textContentItem.spaceInFlowMin <= width && width <= textOrientation * textContentItem.spaceInFlowMax) {
           if (textContentItem.initialized) {
             textContentItem.str.push(" ");
+            console.log('Adding fake space', _objectSpread({}, textContentItem));
+            var currentTransform = getCurrentTextTransform();
+            textContentItem.glyphInfo.push({
+              character: " ",
+              height: currentTransform[3],
+              transform: currentTransform,
+              width: 0
+            });
           }
 
           return false;
@@ -32822,6 +32860,7 @@ var PartialEvaluator = /*#__PURE__*/function () {
         textContent.items.push(runBidiTransform(textContentItem));
         textContentItem.initialized = false;
         textContentItem.str.length = 0;
+        textContentItem.glyphInfo.length = 0;
       }
 
       function enqueueChunk() {
@@ -92700,8 +92739,8 @@ Object.defineProperty(exports, "WorkerMessageHandler", ({
 
 var _worker = __w_pdfjs_require__(1);
 
-var pdfjsVersion = '2.13.216';
-var pdfjsBuild = '399a0ec60';
+var pdfjsVersion = '2.13.220';
+var pdfjsBuild = 'ffcfe4d56';
 })();
 
 /******/ 	return __webpack_exports__;

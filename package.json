@@ -1,6 +1,6 @@
 {
   "name": "pdfjs-dist",
-  "version": "2.13.216",
+  "version": "2.13.220",
   "main": "build/pdf.js",
   "types": "types/src/pdf.d.ts",
   "description": "Generic build of Mozilla's PDF.js library.",
@@ -34,6 +34,6 @@
   "format": "amd",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mozilla/pdfjs-dist"
+    "url": "https://github.com/mgodwin/pdfjs-dist"
   }
 }

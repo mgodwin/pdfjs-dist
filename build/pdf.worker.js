@@ -117,7 +117,7 @@ class WorkerMessageHandler {
     const WorkerTasks = [];
     const verbosity = (0, _util.getVerbosityLevel)();
     const apiVersion = docParams.apiVersion;
-    const workerVersion = '2.13.216';
+    const workerVersion = '2.13.220';
 
     if (apiVersion !== workerVersion) {
       throw new Error(`The API version "${apiVersion}" does not match ` + `the Worker version "${workerVersion}".`);
@@ -23715,6 +23715,7 @@ class PartialEvaluator {
     stateManager = null,
     combineTextItems = false,
     includeMarkedContent = false,
+    includeGlyphInfo = true,
     sink,
     seenStyles = new Set(),
     viewBox
@@ -23742,7 +23743,8 @@ class PartialEvaluator {
       negativeSpaceMax: -Infinity,
       transform: null,
       fontName: null,
-      hasEOL: false
+      hasEOL: false,
+      glyphInfo: []
     };
     const TRACKING_SPACE_FACTOR = 0.1;
     const NEGATIVE_SPACE_FACTOR = -0.2;
@@ -23845,6 +23847,7 @@ class PartialEvaluator {
       return {
         str: bidiResult.str,
         dir: bidiResult.dir,
+        glyphInfo: [...textChunk.glyphInfo],
         width: Math.abs(textChunk.totalWidth),
         height: Math.abs(textChunk.totalHeight),
         transform: textChunk.transform,
@@ -24029,6 +24032,7 @@ class PartialEvaluator {
 
       const glyphs = font.charsToGlyphs(chars);
       const scale = textState.fontMatrix[0] * textState.fontSize;
+      const currentTransform = getCurrentTextTransform();
 
       for (let i = 0, ii = glyphs.length; i < ii; i++) {
         const glyph = glyphs[i];
@@ -24082,14 +24086,25 @@ class PartialEvaluator {
           textChunk.prevTransform = getCurrentTextTransform();
         }
 
+        let character;
+
         if (glyph.isWhitespace) {
           textChunk.str.push(" ");
+          character = " ";
         } else {
           let glyphUnicode = glyph.unicode;
           glyphUnicode = NormalizedUnicodes[glyphUnicode] || glyphUnicode;
           glyphUnicode = (0, _unicode.reverseIfRtl)(glyphUnicode);
           textChunk.str.push(glyphUnicode);
+          character = glyphUnicode;
         }
+
+        textChunk.glyphInfo.push({
+          character: character,
+          height: currentTransform[3],
+          transform: currentTransform,
+          width: scaledDim
+        });
 
         if (charSpacing) {
           if (!font.vertical) {
@@ -24122,6 +24137,15 @@ class PartialEvaluator {
       if (textOrientation * textContentItem.spaceInFlowMin <= width && width <= textOrientation * textContentItem.spaceInFlowMax) {
         if (textContentItem.initialized) {
           textContentItem.str.push(" ");
+          console.log('Adding fake space', { ...textContentItem
+          });
+          const currentTransform = getCurrentTextTransform();
+          textContentItem.glyphInfo.push({
+            character: " ",
+            height: currentTransform[3],
+            transform: currentTransform,
+            width: 0
+          });
         }
 
         return false;
@@ -24162,6 +24186,7 @@ class PartialEvaluator {
       textContent.items.push(runBidiTransform(textContentItem));
       textContentItem.initialized = false;
       textContentItem.str.length = 0;
+      textContentItem.glyphInfo.length = 0;
     }
 
     function enqueueChunk(batch = false) {
@@ -73817,8 +73842,8 @@ Object.defineProperty(exports, "WorkerMessageHandler", ({
 
 var _worker = __w_pdfjs_require__(1);
 
-const pdfjsVersion = '2.13.216';
-const pdfjsBuild = '399a0ec60';
+const pdfjsVersion = '2.13.220';
+const pdfjsBuild = 'ffcfe4d56';
 })();
 
 /******/ 	return __webpack_exports__;

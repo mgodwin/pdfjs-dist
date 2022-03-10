@@ -1,8 +1,8 @@
+export type PageViewport = import("./display/display_utils").PageViewport;
 export type PDFDocumentLoadingTask = import("./display/api").PDFDocumentLoadingTask;
 export type PDFDocumentProxy = import("./display/api").PDFDocumentProxy;
 export type PDFPageProxy = import("./display/api").PDFPageProxy;
 export type RenderTask = import("./display/api").RenderTask;
-export type PageViewport = import("./display/display_utils").PageViewport;
 import { AnnotationLayer } from "./display/annotation_layer.js";
 import { AnnotationMode } from "./shared/util.js";
 import { build } from "./display/api.js";
@@ -20,6 +20,7 @@ import { loadScript } from "./display/display_utils.js";
 import { LoopbackPort } from "./display/api.js";
 import { MissingPDFException } from "./shared/util.js";
 import { OPS } from "./shared/util.js";
+import { PageViewport } from "./display/display_utils.js";
 import { PasswordResponses } from "./shared/util.js";
 import { PDFDataRangeTransport } from "./display/api.js";
 import { PDFDateString } from "./display/display_utils.js";

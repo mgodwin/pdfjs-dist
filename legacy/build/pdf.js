@@ -6143,7 +6143,7 @@ function _fetchDocument2() {
             _context7.next = 5;
             return worker.messageHandler.sendWithPromise("GetDocRequest", {
               docId: docId,
-              apiVersion: '2.13.216',
+              apiVersion: '2.13.220',
               source: {
                 data: source.data,
                 url: source.url,
@@ -8936,9 +8936,9 @@ var InternalRenderTask = /*#__PURE__*/function () {
   return InternalRenderTask;
 }();
 
-var version = '2.13.216';
+var version = '2.13.220';
 exports.version = version;
-var build = '399a0ec60';
+var build = 'ffcfe4d56';
 exports.build = build;
 
 /***/ }),
@@ -24798,6 +24798,12 @@ Object.defineProperty(exports, "PDFWorker", ({
     return _api.PDFWorker;
   }
 }));
+Object.defineProperty(exports, "PageViewport", ({
+  enumerable: true,
+  get: function get() {
+    return _display_utils.PageViewport;
+  }
+}));
 Object.defineProperty(exports, "PasswordResponses", ({
   enumerable: true,
   get: function get() {
@@ -24949,8 +24955,8 @@ var _svg = __w_pdfjs_require__(164);
 
 var _xfa_layer = __w_pdfjs_require__(162);
 
-var pdfjsVersion = '2.13.216';
-var pdfjsBuild = '399a0ec60';
+var pdfjsVersion = '2.13.220';
+var pdfjsBuild = 'ffcfe4d56';
 {
   if (_is_node.isNodeJS) {
     var _require = __w_pdfjs_require__(165),
