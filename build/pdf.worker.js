@@ -117,7 +117,7 @@ class WorkerMessageHandler {
     const WorkerTasks = [];
     const verbosity = (0, _util.getVerbosityLevel)();
     const apiVersion = docParams.apiVersion;
-    const workerVersion = '2.13.220';
+    const workerVersion = '2.13.221';
 
     if (apiVersion !== workerVersion) {
       throw new Error(`The API version "${apiVersion}" does not match ` + `the Worker version "${workerVersion}".`);
@@ -24032,7 +24032,6 @@ class PartialEvaluator {
 
       const glyphs = font.charsToGlyphs(chars);
       const scale = textState.fontMatrix[0] * textState.fontSize;
-      const currentTransform = getCurrentTextTransform();
 
       for (let i = 0, ii = glyphs.length; i < ii; i++) {
         const glyph = glyphs[i];
@@ -24049,6 +24048,7 @@ class PartialEvaluator {
         }
 
         let scaledDim = glyphWidth * scale;
+        const currentTransform = getCurrentTextTransform();
 
         if (glyph.isWhitespace && (i === 0 || i + 1 === ii || glyphs[i - 1].isWhitespace || glyphs[i + 1].isWhitespace || extraSpacing)) {
           if (!font.vertical) {
@@ -73842,8 +73842,8 @@ Object.defineProperty(exports, "WorkerMessageHandler", ({
 
 var _worker = __w_pdfjs_require__(1);
 
-const pdfjsVersion = '2.13.220';
-const pdfjsBuild = 'ffcfe4d56';
+const pdfjsVersion = '2.13.221';
+const pdfjsBuild = '4a1f01254';
 })();
 
 /******/ 	return __webpack_exports__;

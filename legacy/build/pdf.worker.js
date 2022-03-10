@@ -165,7 +165,7 @@ var WorkerMessageHandler = /*#__PURE__*/function () {
       var WorkerTasks = [];
       var verbosity = (0, _util.getVerbosityLevel)();
       var apiVersion = docParams.apiVersion;
-      var workerVersion = '2.13.220';
+      var workerVersion = '2.13.221';
 
       if (apiVersion !== workerVersion) {
         throw new Error("The API version \"".concat(apiVersion, "\" does not match ") + "the Worker version \"".concat(workerVersion, "\"."));
@@ -32706,7 +32706,6 @@ var PartialEvaluator = /*#__PURE__*/function () {
 
         var glyphs = font.charsToGlyphs(chars);
         var scale = textState.fontMatrix[0] * textState.fontSize;
-        var currentTransform = getCurrentTextTransform();
 
         for (var i = 0, ii = glyphs.length; i < ii; i++) {
           var glyph = glyphs[i];
@@ -32724,6 +32723,7 @@ var PartialEvaluator = /*#__PURE__*/function () {
           }
 
           var scaledDim = glyphWidth * scale;
+          var currentTransform = getCurrentTextTransform();
 
           if (glyph.isWhitespace && (i === 0 || i + 1 === ii || glyphs[i - 1].isWhitespace || glyphs[i + 1].isWhitespace || extraSpacing)) {
             if (!font.vertical) {
@@ -92739,8 +92739,8 @@ Object.defineProperty(exports, "WorkerMessageHandler", ({
 
 var _worker = __w_pdfjs_require__(1);
 
-var pdfjsVersion = '2.13.220';
-var pdfjsBuild = 'ffcfe4d56';
+var pdfjsVersion = '2.13.221';
+var pdfjsBuild = '4a1f01254';
 })();
 
 /******/ 	return __webpack_exports__;

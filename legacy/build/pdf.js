@@ -6143,7 +6143,7 @@ function _fetchDocument2() {
             _context7.next = 5;
             return worker.messageHandler.sendWithPromise("GetDocRequest", {
               docId: docId,
-              apiVersion: '2.13.220',
+              apiVersion: '2.13.221',
               source: {
                 data: source.data,
                 url: source.url,
@@ -8936,9 +8936,9 @@ var InternalRenderTask = /*#__PURE__*/function () {
   return InternalRenderTask;
 }();
 
-var version = '2.13.220';
+var version = '2.13.221';
 exports.version = version;
-var build = 'ffcfe4d56';
+var build = '4a1f01254';
 exports.build = build;
 
 /***/ }),
@@ -24955,8 +24955,8 @@ var _svg = __w_pdfjs_require__(164);
 
 var _xfa_layer = __w_pdfjs_require__(162);
 
-var pdfjsVersion = '2.13.220';
-var pdfjsBuild = 'ffcfe4d56';
+var pdfjsVersion = '2.13.221';
+var pdfjsBuild = '4a1f01254';
 {
   if (_is_node.isNodeJS) {
     var _require = __w_pdfjs_require__(165),
