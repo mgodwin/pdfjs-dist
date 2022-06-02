@@ -8964,7 +8964,7 @@ var _jpg = __w_pdfjs_require__(10);
 
 var _jpx = __w_pdfjs_require__(11);
 
-const pdfjsVersion = 'glyph-2.14.310';
+const pdfjsVersion = '2.14.310';
 const pdfjsBuild = 'ee387d5e7';
 })();
 

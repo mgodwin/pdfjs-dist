@@ -3411,7 +3411,7 @@ var BaseViewer = /*#__PURE__*/function () {
       throw new Error("Cannot initialize BaseViewer.");
     }
 
-    var viewerVersion = 'glyph-2.14.310';
+    var viewerVersion = '2.14.310';
 
     if (_pdfjsLib.version !== viewerVersion) {
       throw new Error("The API version \"".concat(_pdfjsLib.version, "\" does not match the Viewer version \"").concat(viewerVersion, "\"."));
@@ -11690,7 +11690,7 @@ var _text_layer_builder = __w_pdfjs_require__(10);
 
 var _xfa_layer_builder = __w_pdfjs_require__(11);
 
-var pdfjsVersion = 'glyph-2.14.310';
+var pdfjsVersion = '2.14.310';
 var pdfjsBuild = 'ee387d5e7';
 })();
 

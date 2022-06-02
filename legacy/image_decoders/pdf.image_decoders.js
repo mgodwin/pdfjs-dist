@@ -10402,7 +10402,7 @@ var _jpg = __w_pdfjs_require__(12);
 
 var _jpx = __w_pdfjs_require__(13);
 
-var pdfjsVersion = 'glyph-2.14.310';
+var pdfjsVersion = '2.14.310';
 var pdfjsBuild = 'ee387d5e7';
 })();
 

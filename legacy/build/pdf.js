@@ -5796,7 +5796,7 @@ function _fetchDocument2() {
             _context7.next = 5;
             return worker.messageHandler.sendWithPromise("GetDocRequest", {
               docId: docId,
-              apiVersion: 'glyph-2.14.310',
+              apiVersion: '2.14.310',
               source: {
                 data: source.data,
                 url: source.url,
@@ -8651,7 +8651,7 @@ var _canvasInUse = {
   writable: true,
   value: new WeakSet()
 };
-var version = 'glyph-2.14.310';
+var version = '2.14.310';
 exports.version = version;
 var build = 'ee387d5e7';
 exports.build = build;
@@ -25332,7 +25332,7 @@ var _svg = __w_pdfjs_require__(177);
 
 var _xfa_layer = __w_pdfjs_require__(175);
 
-var pdfjsVersion = 'glyph-2.14.310';
+var pdfjsVersion = '2.14.310';
 var pdfjsBuild = 'ee387d5e7';
 {
   if (_is_node.isNodeJS) {

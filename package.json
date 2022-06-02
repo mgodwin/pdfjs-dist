@@ -1,6 +1,6 @@
 {
   "name": "pdfjs-dist",
-  "version": "glyph-2.14.310",
+  "version": "2.14.310",
   "main": "build/pdf.js",
   "types": "types/src/pdf.d.ts",
   "description": "Generic build of Mozilla's PDF.js library.",
@@ -35,6 +35,6 @@
   "format": "amd",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mgodwin/pdfjs-dist"
+    "url": "https://github.com/mgodwin/pdfjs-dist.git"
   }
 }

@@ -1355,7 +1355,7 @@ async function _fetchDocument(worker, source, pdfDataRangeTransport, docId) {
 
   const workerId = await worker.messageHandler.sendWithPromise("GetDocRequest", {
     docId,
-    apiVersion: 'glyph-2.14.310',
+    apiVersion: '2.14.310',
     source: {
       data: source.data,
       url: source.url,
@@ -3488,7 +3488,7 @@ class InternalRenderTask {
 
 }
 
-const version = 'glyph-2.14.310';
+const version = '2.14.310';
 exports.version = version;
 const build = 'ee387d5e7';
 exports.build = build;
@@ -16393,7 +16393,7 @@ var _svg = __w_pdfjs_require__(24);
 
 var _xfa_layer = __w_pdfjs_require__(22);
 
-const pdfjsVersion = 'glyph-2.14.310';
+const pdfjsVersion = '2.14.310';
 const pdfjsBuild = 'ee387d5e7';
 {
   if (_is_node.isNodeJS) {
