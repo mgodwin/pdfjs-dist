@@ -1,6 +1,6 @@
 {
   "name": "pdfjs-dist",
-  "version": "2.13.222",
+  "version": "glyph-2.14.310",
   "main": [
     "build/pdf.js",
     "build/pdf.worker.js"
